@@ -1,0 +1,15 @@
+# Do not upload environment variables
+.env
+
+# Node modules
+node_modules/
+
+# Logs
+npm-debug.log
+*.log
+
+# OS files
+.DS_Store
+
+# Build
+dist/
