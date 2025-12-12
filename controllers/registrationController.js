@@ -3,7 +3,7 @@ const { Registration, Event, User, sequelize } = require('../models');
 exports.registerForEvent = async (req, res) => {
     const transaction = await sequelize.transaction();
     try {
-        const { eventId } = req.body;
+        const eventId = req.params.id;  // FIXED ✔
         const userId = req.user.id;
 
         const event = await Event.findByPk(eventId, { transaction });
@@ -32,7 +32,6 @@ exports.registerForEvent = async (req, res) => {
         let status = 'registered';
         if (registeredCount >= event.capacity) {
             status = 'waitlisted';
-            // Increment waitlist count
             await event.increment('waitlist_count', { transaction });
         }
 
@@ -51,6 +50,7 @@ exports.registerForEvent = async (req, res) => {
     }
 };
 
+
 exports.getUserRegistrations = async (req, res) => {
     try {
         const registrations = await Registration.findAll({
@@ -63,9 +63,10 @@ exports.getUserRegistrations = async (req, res) => {
     }
 };
 
+
 exports.getEventRegistrations = async (req, res) => {
     try {
-        const { eventId } = req.params;
+        const eventId = req.params.id;  // OPTIONAL FIX ✔
         const registrations = await Registration.findAll({
             where: { event_id: eventId },
             include: [{ model: User, attributes: ['id', 'name', 'email'] }]
