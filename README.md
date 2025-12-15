@@ -51,5 +51,4 @@ To provide a secure, scalable, and cloud-ready backend system that ensures data 
 - PM2
 - Swagger
 
-AWS_REGION=ap-southeast-2
-S3_BUCKET_NAME=<s3_bucket_name>
+
